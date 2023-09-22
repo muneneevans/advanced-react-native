@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Animated, PanResponder } from 'react-native';
+import { View, Animated, PanResponder, Dimensions } from 'react-native';
 
 export default function Deck({ data, renderCard }) {
 
@@ -17,8 +17,9 @@ export default function Deck({ data, renderCard }) {
     });
 
     const getCardStyle = () => {
+        const width = Dimensions.get('window').width
         const rotate = position.x.interpolate({
-            inputRange: [-500, 0, 500],
+            inputRange: [-width * 4.5 , 0, width * 4.5],
             outputRange: ['-120deg', '0deg', '120deg']
         })
         return {
