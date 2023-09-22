@@ -16,17 +16,30 @@ export default function Deck({ data, renderCard }) {
         onPanResponderRelease: () => { },
     });
 
+    const getCardStyle = () => {
+        const rotate = position.x.interpolate({
+            inputRange: [-500, 0, 500],
+            outputRange: ['-120deg', '0deg', '120deg']
+        })
+        return {
+            ...position.getLayout(),
+            transform: [{ rotate }]
+        }
+    }
+
     const renderCards = () => {
         return data.map((item, index) => {
-            if (index === 0) {
-                return (
-                    <Animated.View style={position.getLayout()} {...panResponder.panHandlers} key={item.id}>
-                        {renderCard(item)}
-                    </Animated.View>)
-            }
-            else {
-                return renderCard(item)
-            }
+            return (
+                <Animated.View
+                    style={getCardStyle()}
+                    {...panResponder.panHandlers} key={item.id}>
+                    {renderCard(item)}
+                </Animated.View>)
+            // if (index === 0) {
+            // }
+            // else {
+            //     return renderCard(item)
+            // }
         })
     }
 
